@@ -9,13 +9,13 @@
 
 > **Subsistem Deployment, Monitoring, & Pemeliharaan Model AI**
 > 
-> Bagian dari ekosistem **Intelligence Engineerings** — Platform Terintegrasi untuk Siklus Hidup Pengembangan Kecerdasan Buatan.
+> Bagian dari ekosistem **Intelligence System** — Platform Terintegrasi untuk Siklus Hidup Pengembangan Kecerdasan Buatan.
 
 ---
 
 ## 📖 Tentang Proyek
 
-**Intelligence Engineerings** adalah sebuah platform terintegrasi yang dirancang untuk mendukung seluruh siklus hidup (*lifecycle*) pengembangan proyek berbasis kecerdasan buatan (AI). Platform ini dikembangkan sebagai bagian dari mata kuliah **Praktikum Rekayasa Perangkat Lunak** di **Universitas Trisakti**, dengan tujuan memberikan pengalaman langsung kepada mahasiswa dalam membangun sistem perangkat lunak berskala besar yang saling terintegrasi.
+**Intelligence Engineerings** adalah sebuah platform terintegrasi yang dirancang untuk mendukung seluruh siklus hidup (*lifecycle*) pengembangan proyek berbasis kecerdasan buatan (AI). Platform ini dikembangkan sebagai bagian dari mata kuliah **Sistem Cerdas Blok** di **Universitas Trisakti**, dengan tujuan memberikan pengalaman langsung kepada mahasiswa dalam membangun sistem perangkat lunak berskala besar yang saling terintegrasi.
 
 Platform ini terdiri dari **5 subsistem** yang masing-masing menangani fase berbeda dalam *lifecycle* pengembangan AI:
 
@@ -160,7 +160,7 @@ Dikembangkan oleh mahasiswa **Universitas Trisakti** — Fakultas Teknologi Indu
 
 ## 📄 Lisensi
 
-Proyek ini dikembangkan untuk keperluan akademis dalam rangka mata kuliah **Praktikum Rekayasa Perangkat Lunak**.
+Proyek ini dikembangkan untuk keperluan akademis dalam rangka mata kuliah **Sistem Cerdas Blok**.
 
 ---
 
