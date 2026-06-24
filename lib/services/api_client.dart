@@ -159,7 +159,7 @@ class DjangoApiClient implements ApiService {
 
   static const _configuredBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://192.168.1.6:8004',
+    defaultValue: 'http://38.47.94.194/tif2/implementation',
   );
 
   final http.Client _client;
@@ -172,7 +172,7 @@ class DjangoApiClient implements ApiService {
       return _configuredBaseUrl;
     }
     // Fallback to local network
-    return 'http://192.168.1.6:8004';
+    return 'http://38.47.94.194/tif2/implementation';
   }
 
   @override
