@@ -511,11 +511,16 @@ class DjangoApiClient implements ApiService {
     Map<String, dynamic> body, {
     bool authenticated = true,
   }) async {
+    final uri = _uri(path);
+    debugPrint('[API _post] POST $uri');
+    debugPrint('[API _post] Body: ${jsonEncode(body)}');
     final response = await _client.post(
-      _uri(path),
+      uri,
       headers: _headers(authenticated: authenticated),
       body: jsonEncode(body),
     );
+    debugPrint('[API _post] Status: ${response.statusCode}');
+    debugPrint('[API _post] Response body: ${response.body}');
     final data = _decode(response);
     if (data is Map<String, dynamic>) {
       return data;
@@ -554,17 +559,20 @@ class DjangoApiClient implements ApiService {
     dynamic data;
     try {
       data = jsonDecode(response.body);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[API _decode] JSON parse error: $e');
       data = null;
     }
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
+      debugPrint('[API _decode] Success (${response.statusCode})');
       return data;
     }
 
     final message = data is Map
         ? (data['message'] ?? data['detail'] ?? 'Request gagal.').toString()
         : 'Request gagal (${response.statusCode}).';
+    debugPrint('[API _decode] Error: $message');
     throw ApiException(message);
   }
 

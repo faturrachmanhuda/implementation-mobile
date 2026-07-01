@@ -42,16 +42,29 @@ class _LoginDanBuatAkunPageState extends State<LoginDanBuatAkunPage> {
   }
 
   Future<void> _login() async {
-    if (!(_loginFormKey.currentState?.validate() ?? false)) {
+    debugPrint('=== LOGIN PROCESS STARTED ===');
+    final formState = _loginFormKey.currentState;
+    debugPrint('FormState is null? ${formState == null}');
+    final isValid = formState?.validate() ?? false;
+    debugPrint('Form validation result: $isValid');
+    if (!isValid) {
+      debugPrint('Form validation failed or formState is null. Returning early.');
       return;
     }
 
+    debugPrint('Loading set to true');
     setState(() => _loading = true);
     try {
+      final email = _loginEmailController.text.trim();
+      final password = _loginPasswordController.text;
+      debugPrint('Attempting login with email: $email, password length: ${password.length}');
+      
       final auth = await ApiServices.instance.login(
-        email: _loginEmailController.text.trim(),
-        password: _loginPasswordController.text,
+        email: email,
+        password: password,
       );
+      
+      debugPrint('Login success! User: ${auth.name}, email: ${auth.email}');
       AppSession.userName = auth.name.trim().isEmpty
           ? 'User'
           : auth.name.trim();
@@ -59,14 +72,19 @@ class _LoginDanBuatAkunPageState extends State<LoginDanBuatAkunPage> {
           ? '-'
           : auth.email.trim();
       if (!mounted) {
+        debugPrint('Widget is not mounted after login. Returning.');
         return;
       }
+      debugPrint('Navigating to ProjectSeleksiPage');
       Navigator.of(context).pushReplacementNamed(ProjectSeleksiPage.routeName);
     } on ApiException catch (error) {
+      debugPrint('ApiException caught: ${error.message}');
       _showMessage(error.message);
-    } catch (_) {
-      _showMessage('Tidak bisa terhubung ke Django API.');
+    } catch (e) {
+      debugPrint('Generic exception caught: $e');
+      _showMessage('Tidak bisa terhubung ke Django API: $e');
     } finally {
+      debugPrint('Loading set to false');
       if (mounted) {
         setState(() => _loading = false);
       }
@@ -74,27 +92,45 @@ class _LoginDanBuatAkunPageState extends State<LoginDanBuatAkunPage> {
   }
 
   Future<void> _register() async {
-    if (!(_registerFormKey.currentState?.validate() ?? false)) {
+    debugPrint('=== REGISTER PROCESS STARTED ===');
+    final formState = _registerFormKey.currentState;
+    debugPrint('Register FormState is null? ${formState == null}');
+    final isValid = formState?.validate() ?? false;
+    debugPrint('Register Form validation result: $isValid');
+    if (!isValid) {
+      debugPrint('Register Form validation failed or formState is null. Returning.');
       return;
     }
 
+    debugPrint('Loading set to true');
     setState(() => _loading = true);
     try {
+      final name = _registerNameController.text.trim();
+      final email = _registerEmailController.text.trim();
+      final password = _passwordController.text;
+      debugPrint('Attempting register with name: $name, email: $email');
+      
       await ApiServices.instance.register(
-        name: _registerNameController.text.trim(),
-        email: _registerEmailController.text.trim(),
-        password: _passwordController.text,
+        name: name,
+        email: email,
+        password: password,
       );
+      
+      debugPrint('Register success!');
       if (!mounted) {
+        debugPrint('Widget is not mounted after register. Returning.');
         return;
       }
       _showMessage('Registrasi berhasil! Silakan login.');
       _setMode(false);
     } on ApiException catch (error) {
+      debugPrint('ApiException caught in register: ${error.message}');
       _showMessage(error.message);
-    } catch (_) {
-      _showMessage('Tidak bisa terhubung ke Django API.');
+    } catch (e) {
+      debugPrint('Generic exception caught in register: $e');
+      _showMessage('Tidak bisa terhubung ke Django API: $e');
     } finally {
+      debugPrint('Loading set to false');
       if (mounted) {
         setState(() => _loading = false);
       }
